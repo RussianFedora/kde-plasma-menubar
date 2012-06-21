@@ -5,7 +5,7 @@ Summary:        A Plasma widget to display menubar of application windows
 
 License:        GPLv3
 URL:            https://launchpad.net/plasma-widget-menubar
-Source0:        https://launchpad.net/plasma-widget-menubar/trunk/0.1.18/+download/plasma-widget-menubar-0.1.18.tar.bz2
+Source0:        https://launchpad.net/plasma-widget-menubar/trunk/%{version}/+download/plasma-widget-menubar-%{version}.tar.bz2
 
 BuildRequires:  kdelibs-devel
 BuildRequires:  dbusmenu-qt-devel
@@ -19,7 +19,7 @@ Plasma widget to display menubar of application windows
 
 
 %build
-%{cmake} .
+%{cmake_kde4} .
 make %{?_smp_mflags}
 
 
@@ -27,11 +27,15 @@ make %{?_smp_mflags}
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
+%post -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
+
 
 %files
 %doc COPYING NEWS
-%{_libdir}/kde4/plasma_applet_menubar.so
-%{_datadir}/kde4/services/plasma-applet-menubar.desktop
+%{_kde4_libdir}/kde4/plasma_applet_menubar.so
+%{_kde4_datadir}/kde4/services/plasma-applet-menubar.desktop
 
 
 %changelog
